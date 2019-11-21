@@ -22,14 +22,15 @@ let pointage
 function preload()
 {
     this.load.image('dino', 'assets/dino.png')
+    this.load.image('jungle', 'assets/jungle.png')
     pointage = this.input.keyboard.createCursorKeys()
 }
 
 function create()
 {
-    dino = this.physics.add.image(200, 200, 'dino')
+    this.add.image(400, 300, 'jungle')
+    dino = this.physics.add.image(50, 250, 'dino')
     dino.body.collideWorldBounds = true
-
 }
 
 function update()
