@@ -8,9 +8,6 @@
     <script src="dinoGame.js"></script>
     <title>Dino Jungle</title>
 </head>
-
 <body class="container">
-
 </body>
-
 </html>

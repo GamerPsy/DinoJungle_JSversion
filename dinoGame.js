@@ -1,7 +1,7 @@
 const config = {
     width : 800,
     height : 600,
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     physics: {
         default: 'arcade',
         arcade: {
@@ -21,14 +21,14 @@ let pointage
 
 function preload()
 {
-    this.load.image('dino', 'assets/dino.png')
+    this.load.image('dino', 'assets/dino.png', { frameWidth: 100, frameHeight: 100 })
     this.load.image('jungle', 'assets/jungle.png')
     pointage = this.input.keyboard.createCursorKeys()
 }
 
 function create()
 {
-    this.add.image(400, 300, 'jungle')
+    this.add.image(0, 0, 'jungle').setOrigin(0, 0)
     dino = this.physics.add.image(50, 250, 'dino')
     dino.body.collideWorldBounds = true
 }
