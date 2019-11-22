@@ -4,11 +4,10 @@ Projet commencé le 21/11/2019
 ### Comment tester :
 * Clonez ou téléchargez ce repository.
 * Rentrez dans le dossier.
-* Lancez un serveur :
-Via Python installé sur votre machine :
-```python -m SimpleHTTPServer```
-Via PHP installé sur votre machine :
+* Via PHP installé sur votre machine :
 ```php -S localhost:8000```
+* Vous n'avez pas PHP mais Python installé sur votre machine, changez le nom de fichier index.php par index.html et lancez :
+```python -m SimpleHTTPServer```
 * Aller sur localhost sur votre navigateur en rentrant cette adresse :
 ```http://localhost:8000/```
 
