@@ -24,7 +24,7 @@ let score = 0;
 let scoreText;
 
 function preload() {
-    this.load.image('dino', 'assets/dino2.png')
+    this.load.image('dino', 'assets/dino.png')
     this.load.image('oeuf', 'assets/oeuf.png')
     this.load.image('jungle', 'assets/jungle.png')
     this.load.image('sol', 'assets/platform.png');
