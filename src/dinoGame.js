@@ -20,14 +20,14 @@ let sol
 let dino
 let oeuf
 let pointage
-let score = 0;
-let scoreText;
+let score = 0
+let scoreText
 
 function preload() {
-    this.load.image('dino', 'assets/dino.png')
-    this.load.image('oeuf', 'assets/oeuf.png')
     this.load.image('jungle', 'assets/jungle.png')
-    this.load.image('sol', 'assets/platform.png');
+    this.load.spritesheet('dino', 'assets/dino.png', {frameWidth: 79, frameHeight: 86})
+    this.load.image('oeuf', 'assets/oeuf.png')
+    this.load.image('sol', 'assets/platform.png')
     pointage = this.input.keyboard.createCursorKeys()
 }
 
@@ -54,21 +54,41 @@ function create() {
     this.physics.add.collider(dino, sol);
     this.physics.add.collider(oeuf, sol);
     this.physics.add.overlap(dino, oeuf, collectOeuf, null, this);
+    this.anims.create({
+        key: 'left',
+        frames: this.anims.generateFrameNumbers('dino', {start: 9, end: 17}),
+        frameRate: 10,
+        repeat: -1
+    });
+    this.anims.create({
+        key: 'turn',
+        frames: [{key: 'dino', frame: 3}],
+        frameRate: 20
+    });
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('dino', {start: 0, end: 8}),
+        frameRate: 10,
+        repeat: -1
+    });
 }
 
 function update() {
     switch (true) {
         case pointage.left.isDown :
             dino.setVelocityX(-160)
+            dino.anims.play('left', true);
             break
         case pointage.right.isDown :
             dino.setVelocityX(160);
+            dino.anims.play('right', true);
             break
         case pointage.up.isDown && dino.body.touching.down:
             dino.setVelocityY(-300);
             break
         default :
             dino.setVelocityX(0);
+            dino.anims.play('turn');
     }
 }
 
