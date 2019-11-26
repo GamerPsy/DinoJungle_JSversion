@@ -25,9 +25,9 @@ let scoreText
 
 function preload() {
     this.load.image('jungle', 'assets/jungle.png')
-    this.load.spritesheet('dino', 'assets/dino.png', {frameWidth: 79, frameHeight: 86})
     this.load.image('oeuf', 'assets/oeuf.png')
     this.load.image('sol', 'assets/platform.png')
+    this.load.spritesheet('dino', 'assets/dino.png', {frameWidth: 79, frameHeight: 86})
     pointage = this.input.keyboard.createCursorKeys()
 }
 
