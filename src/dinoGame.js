@@ -13,29 +13,29 @@ const config = {
         create: create,
         update: update,
     }
-}
+};
 
-const GAME = new Phaser.Game(config)
-let sol
-let dino
-let oeuf
-let pointage
-let score = 0
-let scoreText
+const GAME = new Phaser.Game(config);
+let sol;
+let dino;
+let oeuf;
+let pointage;
+let score = 0;
+let scoreText;
 
 function preload() {
-    this.load.image('jungle', 'assets/jungle.png')
-    this.load.image('oeuf', 'assets/oeuf.png')
-    this.load.image('sol', 'assets/platform.png')
-    this.load.spritesheet('dino', 'assets/dino.png', {frameWidth: 79, frameHeight: 86})
+    this.load.image('jungle', 'assets/jungle.png');
+    this.load.image('oeuf', 'assets/oeuf.png');
+    this.load.image('sol', 'assets/platform.png');
+    this.load.spritesheet('dino', 'assets/dino.png', {frameWidth: 79, frameHeight: 86});
     pointage = this.input.keyboard.createCursorKeys()
 }
 
 function create() {
-    this.add.image(400, 300, 'jungle')
-    sol = this.physics.add.staticGroup()
-    sol.create(400, 620, 'sol').setScale(2).refreshBody()
-    scoreText = this.add.text(16, 16, 'score: 0', {fontSize: '32px', fill: '#fff'})
+    this.add.image(400, 300, 'jungle');
+    sol = this.physics.add.staticGroup();
+    sol.create(400, 620, 'sol').setScale(2).refreshBody();
+    scoreText = this.add.text(16, 16, 'score: 0', {fontSize: '32px', fill: '#fff'});
     oeuf = this.physics.add.group({
         key: 'oeuf',
         repeat: 9,
@@ -76,16 +76,16 @@ function create() {
 function update() {
     switch (true) {
         case pointage.left.isDown :
-            dino.setVelocityX(-160)
+            dino.setVelocityX(-160);
             dino.anims.play('left', true);
-            break
+            break;
         case pointage.right.isDown :
             dino.setVelocityX(160);
             dino.anims.play('right', true);
             break
         case pointage.up.isDown && dino.body.touching.down:
             dino.setVelocityY(-300);
-            break
+            break;
         default :
             dino.setVelocityX(0);
             dino.anims.play('turn');
