@@ -1,6 +1,6 @@
 const config = {
-    width : 800,
-    height : 600,
+    width: 800,
+    height: 600,
     type: Phaser.AUTO,
     physics: {
         default: 'arcade',
@@ -19,35 +19,55 @@ const GAME = new Phaser.Game(config)
 let dino
 let oeuf
 let pointage
+let score = 0;
+let scoreText;
 
-function preload()
-{
-    this.load.image('dino', 'assets/dino.png')
+function preload() {
+    this.load.image('dino', 'assets/dino2.png')
     this.load.image('oeuf', 'assets/oeuf.png')
     this.load.image('jungle', 'assets/jungle.png')
     pointage = this.input.keyboard.createCursorKeys()
 }
 
-function create()
-{
+function create() {
     this.add.image(400, 300, 'jungle')
-    oeuf = this.physics.add.image(400, 200, 'oeuf')
-    oeuf.body.collideWorldBounds = true
-    dino = this.physics.add.image(50, 250, 'dino')
-    dino.body.collideWorldBounds = true
+    scoreText = this.add.text(16, 16, 'score: 0', {fontSize: '32px', fill: '#fff'});
+    oeuf = this.physics.add.group({
+        key: 'oeuf',
+        repeat: 9,
+        setXY: {x: 120, y: 0, stepX: 70},
+    });
+    oeuf.children.iterate(function (child) {
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        child.setCollideWorldBounds(true)
+    });
+
+    dino = this.physics.add.sprite(50, 450, 'dino');
+    dino.setBounce(0.2);
+    dino.setCollideWorldBounds(true);
+
+    this.physics.add.collider(oeuf, dino);
+    this.physics.add.overlap(dino, oeuf, collectOeuf, null, this);
 }
 
-function update()
-{
-    dino.setVelocityX(0)
+function update() {
+    switch (true) {
+        case pointage.left.isDown :
+            dino.setVelocityX(-160)
+            break
+        case pointage.right.isDown :
+            dino.setVelocityX(160);
+            break
+        case pointage.up.isDown :
+            dino.setVelocityY(-250);
+            break
+        default :
+            dino.setVelocityX(0);
+    }
+}
 
-    if(pointage.up.isDown){
-        dino.setVelocity(0, -300)
-    }
-    if(pointage.left.isDown){
-        dino.setVelocity(-200, 0)
-    }
-    if(pointage.right.isDown){
-        dino.setVelocity(200, 0)
-    }
+function collectOeuf(dino, oeuf) {
+    oeuf.disableBody(true, true);
+    score += 10;
+    scoreText.setText('Score: ' + score);
 }
